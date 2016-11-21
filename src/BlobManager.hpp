@@ -34,7 +34,7 @@ private:
     vector<blob*> blobs;
     
     // OSC channel for Blobs
-    ofxOscReceiver blobsReceiver;
+    ofxOscReceiver receiver;
     
     // When a new OSC message with blob information
     // arrives, this method will be invoked to
@@ -51,6 +51,7 @@ public:
     void init();
     void update();
     void draw();
+    void printStatus();
 };
 
 #endif /* BlobManager_hpp */

@@ -25,17 +25,17 @@ BlobManagerClass* BlobManagerClass::instance() {
 
 void BlobManagerClass::init() {
     // OSC receiver for Blobs
-    blobsReceiver.setup(OSC_PORT_BLOBS);
+    receiver.setup(OSC_PORT_BLOBS);
 }
 
 void BlobManagerClass::update() {
     // Check for waiting messages
     // on blobs OSC channel
-    while(blobsReceiver.hasWaitingMessages()){
+    while(receiver.hasWaitingMessages()){
         
         // Get the next message
         ofxOscMessage m;
-        blobsReceiver.getNextMessage(m);
+        receiver.getNextMessage(m);
         
         // Check for blob messages
         if(m.getAddress() == "/blob"){
@@ -46,7 +46,6 @@ void BlobManagerClass::update() {
             newBlobData->size = m.getArgAsFloat(3);
             newBlobData->time = ofGetElapsedTimef();
             addOrUpdateBlob(newBlobData);
-            printBlobs();
         }
     }
     
@@ -102,4 +101,8 @@ void BlobManagerClass::removeExpiredBlobs(){
             }
         }
     }
+}
+
+void BlobManagerClass::printStatus(){
+    printBlobs();
 }
